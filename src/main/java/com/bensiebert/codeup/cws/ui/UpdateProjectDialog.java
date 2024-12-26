@@ -92,7 +92,6 @@ public class UpdateProjectDialog extends JDialog {
 
 
             String b = body.toString();
-            System.out.println(b);
 
             JsonNode n = HttpUtils.request("https://codeup.space/api/v2/repos/u/" + repo.username + "/" + repo.name, "POST", b, LoginConfig.getInstance().token);
 
