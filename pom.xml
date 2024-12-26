@@ -28,9 +28,24 @@
             <version>3.0.2</version>
         </dependency>
         <dependency>
+            <groupId>com.github.jiconfont</groupId>
+            <artifactId>jiconfont-swing</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jiconfont</groupId>
+            <artifactId>jiconfont-bundle</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jiconfont</groupId>
+            <artifactId>jiconfont-google_material_design_icons</artifactId>
+            <version>2.2.0.2</version>
+        </dependency>
+        <dependency>
             <groupId>com.miglayout</groupId>
-            <artifactId>miglayout</artifactId>
-            <version>3.7.4</version>
+            <artifactId>miglayout-swing</artifactId>
+            <version>11.4.2</version>
         </dependency>
     </dependencies>
 

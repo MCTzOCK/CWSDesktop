@@ -27,6 +27,7 @@ public class LoginConfig implements Serializable {
 
     public void save() {
         try {
+            System.out.println("Saving login config");
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(savePath));
             oos.writeObject(this);
             oos.close();
@@ -56,6 +57,12 @@ public class LoginConfig implements Serializable {
         if(this.token == null) return;
 
         JsonNode n = HttpUtils.get("https://codeup.space/api/account/verify", this.token);
+
+        if(!n.get("verified").asBoolean()) {
+            this.token = null;
+            this.save();
+            return;
+        }
 
         if(n.get("token") != null) {
             this.token = n.get("token").asText();

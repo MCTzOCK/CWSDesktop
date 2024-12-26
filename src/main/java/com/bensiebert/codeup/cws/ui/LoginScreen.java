@@ -60,9 +60,11 @@ public class LoginScreen {
 
                 JsonNode n = HttpUtils.request("https://codeup.space/api/account/login", "POST", body, "");
 
-                if(n.get("token") != null && n.get("error") == null) {
+                if(n.has("token")) {
                     LoginConfig.getInstance().token = n.get("token").asText();
                     LoginConfig.getInstance().update();
+                    jf.dispose();
+                    new MainScreen();
                 } else {
                     if(n.get("_2fa") != null) {
                         String code = JOptionPane.showInputDialog(jf, "2FA Code eingeben","", JOptionPane.QUESTION_MESSAGE);
@@ -73,6 +75,8 @@ public class LoginScreen {
                         if(n2fa.get("token") != null && n2fa.get("error") == null) {
                             LoginConfig.getInstance().token = n2fa.get("token").asText();
                             LoginConfig.getInstance().update();
+                            jf.dispose();
+                            new MainScreen();
                         } else {
                             JOptionPane.showMessageDialog(jf, "Fehler beim Anmelden", "Fehler", JOptionPane.ERROR_MESSAGE);
                         }
