@@ -1,7 +1,11 @@
 package com.bensiebert.codeup.cws.components;
 
 import com.bensiebert.codeup.cws.abstraction.CodeUpModels;
+import com.bensiebert.codeup.cws.config.LoginConfig;
 import com.bensiebert.codeup.cws.constants.Fonts;
+import com.bensiebert.codeup.cws.rest.HttpUtils;
+import com.bensiebert.codeup.cws.ui.UpdateProjectDialog;
+import com.fasterxml.jackson.databind.JsonNode;
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.icons.google_material_design_icons.GoogleMaterialDesignIcons;
 import jiconfont.swing.IconFontSwing;
@@ -10,12 +14,13 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.function.Function;
 
 public class RepositoryItem extends JComponent {
 
     public CodeUpModels.Repository repository;
 
-    public RepositoryItem(CodeUpModels.Repository repository) {
+    public RepositoryItem(JFrame parent, CodeUpModels.Repository repository, Function<Void, Void> reload) {
         this.repository = repository;
 
         setSize(700, 100);
@@ -46,6 +51,29 @@ public class RepositoryItem extends JComponent {
         JButton editButton = new JButton(IconFontSwing.buildIcon(FontAwesome.PENCIL, 20, new Color(255, 255, 255)));
         JButton deleteButton = new JButton(IconFontSwing.buildIcon(FontAwesome.TRASH, 20, new Color(255, 255, 255)));
         JButton openButton = new JButton(IconFontSwing.buildIcon(FontAwesome.EXTERNAL_LINK, 20, new Color(255, 255, 255)));
+
+        deleteButton.addActionListener(e -> {
+            if(
+                    JOptionPane.showConfirmDialog(
+                            this,
+                            "Möchtest du das Projekt wirklich löschen?",
+                            "Projekt löschen",
+                            JOptionPane.YES_NO_OPTION
+                    ) == JOptionPane.YES_OPTION
+            ) {
+                JsonNode n = HttpUtils.request("https://codeup.space/api/v2/repos/u/" + repository.username + "/" + repository.name, "DELETE", "", LoginConfig.getInstance().token);
+                if(n.has("error")) {
+                    JOptionPane.showMessageDialog(this, n.get("error").asText(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Projekt erfolgreich gelöscht.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
+                    reload.apply(null);
+                }
+            }
+        });
+
+        editButton.addActionListener(e -> {
+            new UpdateProjectDialog(parent, reload, repository);
+        });
 
         buttonPanel.add(editButton);
         buttonPanel.add(deleteButton);

@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 public class MainScreen extends JFrame {
 
@@ -40,11 +41,13 @@ public class MainScreen extends JFrame {
         JButton createButton = new JButton(IconFontSwing.buildIcon(FontAwesome.PLUS, 20, new Color(255, 255, 255)));
         createButton.setBounds(700, 25, 35, 35);
         createButton.addActionListener(e -> {
-            new CreateProjectDialog(this);
+            new CreateProjectDialog(this, (a) -> {
+                reloadProjects();
+                return null;
+            });
         });
 
         JButton reloadButton = new JButton(IconFontSwing.buildIcon(FontAwesome.REFRESH, 20, new Color(255, 255, 255)));
-        reloadButton.setBackground(Color.BLUE);
         reloadButton.setBounds(650, 25, 35, 35);
         reloadButton.addActionListener(new ActionListener() {
             @Override
@@ -103,7 +106,10 @@ public class MainScreen extends JFrame {
         repoPane.removeAll();
 
         for (CodeUpModels.Repository r : projects) {
-            RepositoryItem ri = new RepositoryItem(r);
+            RepositoryItem ri = new RepositoryItem(this, r, (a) -> {
+                reloadProjects();
+                return null;
+            });
             repoPane.add(ri);
         }
 
