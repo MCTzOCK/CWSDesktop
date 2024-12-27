@@ -1,6 +1,6 @@
 package com.bensiebert.codeup.cws.components;
 
-import com.bensiebert.codeup.cws.ProjectUtil;
+import com.bensiebert.codeup.cws.util.ProjectUtil;
 import com.bensiebert.codeup.cws.abstraction.CodeUpModels;
 import com.bensiebert.codeup.cws.config.LoginConfig;
 import com.bensiebert.codeup.cws.constants.Fonts;
@@ -13,7 +13,6 @@ import jiconfont.swing.IconFontSwing;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.function.Function;
 

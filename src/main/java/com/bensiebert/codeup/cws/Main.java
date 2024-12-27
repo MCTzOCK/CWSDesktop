@@ -3,6 +3,7 @@ package com.bensiebert.codeup.cws;
 import com.bensiebert.codeup.cws.config.LoginConfig;
 import com.bensiebert.codeup.cws.ui.LoginScreen;
 import com.bensiebert.codeup.cws.ui.MainScreen;
+import com.bensiebert.codeup.cws.util.EditorDetector;
 import com.github.weisj.darklaf.LafManager;
 import com.github.weisj.darklaf.theme.OneDarkTheme;
 import jiconfont.icons.font_awesome.FontAwesome;

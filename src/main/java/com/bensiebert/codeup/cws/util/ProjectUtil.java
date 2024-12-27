@@ -1,4 +1,4 @@
-package com.bensiebert.codeup.cws;
+package com.bensiebert.codeup.cws.util;
 
 import com.bensiebert.codeup.cws.abstraction.CodeUpModels;
 import com.bensiebert.codeup.cws.config.LoginConfig;
@@ -6,8 +6,6 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class ProjectUtil {
 
