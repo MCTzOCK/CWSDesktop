@@ -61,6 +61,7 @@ public class LoginScreen {
                 JsonNode n = HttpUtils.request("https://codeup.space/api/account/login", "POST", body, "");
 
                 if(n.has("token")) {
+                    LoginConfig.getInstance().password = password;
                     LoginConfig.getInstance().token = n.get("token").asText();
                     LoginConfig.getInstance().update();
                     jf.dispose();
@@ -73,6 +74,7 @@ public class LoginScreen {
                         JsonNode n2fa = HttpUtils.request("https://codeup.space/api/account/login", "POST", body2fa, "");
 
                         if(n2fa.get("token") != null && n2fa.get("error") == null) {
+                            LoginConfig.getInstance().password = password;
                             LoginConfig.getInstance().token = n2fa.get("token").asText();
                             LoginConfig.getInstance().update();
                             jf.dispose();

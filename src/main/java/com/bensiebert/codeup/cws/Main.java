@@ -13,9 +13,17 @@ import jiconfont.icons.entypo.Entypo;
 import jiconfont.icons.typicons.Typicons;
 import jiconfont.swing.IconFontSwing;
 
+import java.io.File;
+
 public class Main {
 
     public static void main(String[] args) {
+
+        File projectDir = new File(System.getProperty("user.home") + "/codeup");
+        if (!projectDir.exists()) {
+            projectDir.mkdirs();
+        }
+
         LafManager.setDecorationsEnabled(false);
         LafManager.installTheme(new OneDarkTheme());
 

@@ -1,5 +1,6 @@
 package com.bensiebert.codeup.cws.components;
 
+import com.bensiebert.codeup.cws.ProjectUtil;
 import com.bensiebert.codeup.cws.abstraction.CodeUpModels;
 import com.bensiebert.codeup.cws.config.LoginConfig;
 import com.bensiebert.codeup.cws.constants.Fonts;
@@ -73,6 +74,10 @@ public class RepositoryItem extends JComponent {
 
         editButton.addActionListener(e -> {
             new UpdateProjectDialog(parent, reload, repository);
+        });
+
+        openButton.addActionListener(e -> {
+            ProjectUtil.openProject(repository);
         });
 
         buttonPanel.add(editButton);

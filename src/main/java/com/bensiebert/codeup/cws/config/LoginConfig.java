@@ -13,6 +13,7 @@ public class LoginConfig implements Serializable {
     public String firstName;
     public String lastName;
     public String token;
+    public String password;
 
     public static LoginConfig instance;
 
