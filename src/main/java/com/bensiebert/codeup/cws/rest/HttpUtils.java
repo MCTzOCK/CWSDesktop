@@ -7,17 +7,25 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 
 public class HttpUtils {
 
     public static JsonNode request(String url, String method, String body, String token) {
-        HttpClient client = HttpClient.newHttpClient();
+        HttpClient client = HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(10))
+                .version(HttpClient.Version.HTTP_1_1)
+                .build();
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
                 .header("X-JWT", token)
                 .method(method, HttpRequest.BodyPublishers.ofString(body))
+                .timeout(Duration.ofSeconds(10))
                 .build();
+
+        System.out.println(request);
 
         try {
             ObjectMapper mapper = new ObjectMapper();

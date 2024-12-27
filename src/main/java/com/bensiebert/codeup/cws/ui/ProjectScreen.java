@@ -69,15 +69,20 @@ public class ProjectScreen extends JFrame {
         fileMenu.add(closeItem);
 
         JMenu deployMenu = new JMenu("Veröffentlichen");
+        deployMenu.setFont(Fonts.TEXT_FONT);
         JMenuItem deployItem = new JMenuItem("Zentrale öffnen");
+        deployItem.setIcon(
+                IconFontSwing.buildIcon(FontAwesome.ROCKET, 16, Color.WHITE)
+        );
+        deployItem.setFont(Fonts.TEXT_FONT);
         deployItem.addActionListener(e -> {
-
+            new DeployProjectDialog(this, r);
         });
 
         deployMenu.add(deployItem);
 
-        menuBar.add(deployMenu);
         menuBar.add(fileMenu);
+        menuBar.add(deployMenu);
 
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout("fillx", "[]", "[]"));
