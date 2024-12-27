@@ -77,6 +77,7 @@ public class RepositoryItem extends JComponent {
 
         openButton.addActionListener(e -> {
             ProjectUtil.openProject(repository);
+            parent.dispose();
         });
 
         buttonPanel.add(editButton);

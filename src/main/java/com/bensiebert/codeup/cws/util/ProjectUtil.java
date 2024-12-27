@@ -2,6 +2,7 @@ package com.bensiebert.codeup.cws.util;
 
 import com.bensiebert.codeup.cws.abstraction.CodeUpModels;
 import com.bensiebert.codeup.cws.config.LoginConfig;
+import com.bensiebert.codeup.cws.ui.ProjectScreen;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
@@ -11,19 +12,15 @@ public class ProjectUtil {
 
     public static void openProject(CodeUpModels.Repository repo) {
         if (hasLocalCopy(repo._id)) {
-            openProject(repo._id);
+            new ProjectScreen(repo);
         } else {
             try {
                 cloneProject(repo);
-                openProject(repo._id);
+                new ProjectScreen(repo);
             } catch (GitAPIException e) {
                 e.printStackTrace();
             }
         }
-    }
-
-    public static void openProject(String id) {
-        System.out.println("Opening project " + id);
     }
 
     public static void cloneProject(CodeUpModels.Repository repo) throws GitAPIException {

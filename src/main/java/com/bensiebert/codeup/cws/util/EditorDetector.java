@@ -1,6 +1,9 @@
 package com.bensiebert.codeup.cws.util;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class EditorDetector {
 
@@ -10,6 +13,15 @@ public class EditorDetector {
             return "cmd.exe /c where ";
         } else {
             return "which ";
+        }
+    }
+
+    public static String getShell() {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
+            return "cmd.exe /c ";
+        } else {
+            return "/bin/bash ";
         }
     }
 
@@ -23,8 +35,6 @@ public class EditorDetector {
             "vim",
             "emacs",
             "atom",
-            "subl",
-            "notepad",
             "webstorm",
         };
 
@@ -51,7 +61,6 @@ public class EditorDetector {
     public static String getEditorPath(EditorType editor) {
         try {
             String cmd = getBaseCommand() + editor.toString().toLowerCase();
-            System.out.println(cmd);
             Process p = Runtime.getRuntime().exec(cmd);
             p.waitFor();
             return p.exitValue() == 0 ? StreamUtil.inputStreamToString(p.getInputStream()).split("\n")[0] : null;
@@ -68,8 +77,6 @@ public class EditorDetector {
         VIM,
         EMACS,
         ATOM,
-        SUBLIME,
-        NOTEPAD,
         WEBSTORM,
         UNKNOWN;
 
@@ -81,8 +88,6 @@ public class EditorDetector {
                 case "vim" -> VIM;
                 case "emacs" -> EMACS;
                 case "atom" -> ATOM;
-                case "subl" -> SUBLIME;
-                case "notepad" -> NOTEPAD;
                 case "webstorm" -> WEBSTORM;
                 default -> UNKNOWN;
             };
@@ -97,10 +102,21 @@ public class EditorDetector {
                 case VIM -> "vim";
                 case EMACS -> "emacs";
                 case ATOM -> "atom";
-                case SUBLIME -> "subl";
-                case NOTEPAD -> "notepad";
                 case WEBSTORM -> "webstorm";
                 default -> "unknown";
+            };
+        }
+
+        public ImageIcon getIcon() {
+            return switch (this) {
+                case VSCODE -> new ImageIcon(Objects.requireNonNull(EditorDetector.class.getResource("/icons/vscode.png")));
+                case INTELLIJ -> new ImageIcon(Objects.requireNonNull(EditorDetector.class.getResource("/icons/intellij.png")));
+                case ECLIPSE -> new ImageIcon(Objects.requireNonNull(EditorDetector.class.getResource("/icons/eclipse.png")));
+                case VIM -> new ImageIcon(Objects.requireNonNull(EditorDetector.class.getResource("/icons/vim.png")));
+                case EMACS -> new ImageIcon(Objects.requireNonNull(EditorDetector.class.getResource("/icons/emacs.png")));
+                case ATOM -> new ImageIcon(Objects.requireNonNull(EditorDetector.class.getResource("/icons/atom.png")));
+                case WEBSTORM -> new ImageIcon(Objects.requireNonNull(EditorDetector.class.getResource("/icons/webstorm.png")));
+                default -> null;
             };
         }
     }
