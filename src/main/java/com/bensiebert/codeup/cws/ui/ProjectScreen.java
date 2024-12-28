@@ -95,11 +95,6 @@ public class ProjectScreen extends JFrame {
         description.setFont(Fonts.TEXT_FONT);
         panel.add(description, "wrap");
 
-        JLabel edit = new JLabel("Bearbeiten");
-        edit.setFont(Fonts.TITLE_FONT);
-
-        panel.add(edit, "wrap");
-
         JPopupMenu editMenu = new JPopupMenu("Öffnen in");
 
         ArrayList<EditorDetector.Editor> editors = EditorDetector.getInstalledEditors();

@@ -108,9 +108,10 @@ public class DeployProjectDialog extends JDialog {
         panel.add(logsPanel, "growx, growy");
 
         add(panel);
-        setVisible(true);
 
         update();
+
+        setVisible(true);
     }
 
     public void update() {
@@ -127,5 +128,7 @@ public class DeployProjectDialog extends JDialog {
         } else {
             this.logs.setText(logsN.get("logs").asText());
         }
+
+        this.repaint();
     }
 }
