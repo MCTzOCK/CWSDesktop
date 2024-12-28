@@ -81,8 +81,22 @@ public class ProjectScreen extends JFrame {
 
         deployMenu.add(deployItem);
 
+        JMenu statsMenu = new JMenu("Statistiken");
+        statsMenu.setFont(Fonts.TEXT_FONT);
+        JMenuItem statsItem = new JMenuItem("Öffnen");
+        statsItem.setIcon(
+                IconFontSwing.buildIcon(FontAwesome.BAR_CHART, 16, Color.WHITE)
+        );
+        statsItem.setFont(Fonts.TEXT_FONT);
+        statsItem.addActionListener(e -> {
+            new StatsDialog(r, this);
+        });
+
+        statsMenu.add(statsItem);
+
         menuBar.add(fileMenu);
         menuBar.add(deployMenu);
+        menuBar.add(statsMenu);
 
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout("fillx", "[]", "[]"));
