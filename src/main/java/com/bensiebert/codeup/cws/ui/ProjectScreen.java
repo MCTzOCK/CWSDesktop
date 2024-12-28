@@ -1,6 +1,7 @@
 package com.bensiebert.codeup.cws.ui;
 
 import com.bensiebert.codeup.cws.abstraction.CodeUpModels;
+import com.bensiebert.codeup.cws.components.CommitGraph;
 import com.bensiebert.codeup.cws.constants.Fonts;
 import com.bensiebert.codeup.cws.util.EditorDetector;
 import com.bensiebert.codeup.cws.util.StreamUtil;
@@ -135,6 +136,19 @@ public class ProjectScreen extends JFrame {
         editSplitButton.setFont(Fonts.TEXT_FONT);
         editSplitButton.setActionMenu(editMenu);
         panel.add(editSplitButton, "wrap");
+
+        JLabel git = new JLabel("Git");
+        git.setFont(Fonts.TITLE_FONT);
+
+        JScrollPane gitScroll = new JScrollPane();
+        gitScroll.setPreferredSize(new Dimension(800, 400));
+        gitScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        gitScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        CommitGraph graph = new CommitGraph(r);
+        gitScroll.setViewportView(graph);
+
+        panel.add(git, "wrap");
+        panel.add(graph, "wrap, growx");
 
 
 
